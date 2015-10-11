@@ -328,7 +328,18 @@ class Client {
         $this->results = array();
         return $results;
     }
-
+    
+    /**
+     * Once all curl requests completed running you can callback another function to signal the end
+     * @param string|array $callbackFunction
+     * @return bool
+    */
+    public function completed( $callbackFunction )
+    {
+        while ($this->run()) {}
+        call_user_func($callbackFunction);
+    }
+    
     /**
      * Return one next result, wait first exec request
      * @return Result|null
